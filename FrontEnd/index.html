@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Me</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="landingContiner justify-content-center  align-items-center">
+        <div class="landing d-flex flex-column justfiy-content-center align-items-center mr-5 ml-5 col-7">
+            <h1 class="mb-3 align-content-center">Welcome To Chat App 🖐</h1>
+            <p class="mb-3 fs-3">If you Have an account click on log In If don't click on Sign Up</p>
+            <button class="signUpButton btn-primary rounded-3 mb-3 fs-3 p-sm-1">Sign Up</button>
+            <button class="logInButton btn-primary rounded-3 mb-3 fs-3 p-sm-2">Log In</button>
+            <div class="signUpPage hidden">
+                <p class="mb-5 fs-3">Welcome To our app 😊:</p>
+                <form class="d-flex flex-column" action="" method="POST">
+                    <input class="name fs-2 p-sm-2 mb-3" type="text" name="userName" required placeholder="Name" maxlength="10" minlength="1">
+                    <input class="email fs-2 p-sm-2 mb-3" type="email" name="email" required placeholder="Email">
+                    <input class="password fs-2 p-sm-2 mb-3" type="password" name="password" required placeholder="Password" minlength="8">
+                    <button type="submit" class="submit btn-secondary mb-3 fs-3 p-sm-1">Send</button>
+                </form>
+            </div>
+            <div class="logInPage hidden">
+                <p class="mb-4 fs-3 align-content-start">Welcome Back 😊:</p>
+                <form class="d-flex flex-column" action="" method="POST">
+                    <input class="email fs-2 p-sm-2 mb-3" type="email" name="email" required placeholder="Email">
+                    <input class="password fs-2 p-sm-2 mb-3" type="password" name="password" required placeholder="Password" minlength="8">
+                    <button type="submit" class="submit btn-secondary mb-3 fs-3 p-sm-1">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <main class="main">
+            <nav class="d-flex justify-content-between align-items-center p-sm-4">
+                <div  class="logo">chat me<sup class="beta">Beta</sup></div>
+                
+                <button class="logOutButton"><span class="active-user"></span> Log Out</button>
+            </nav>
+            <div class="screen d-flex justify-content-between">
+                <div class="side-bar">
+                    <div class="search-bar">
+                        <input type="text" name="userName" class="search-input" placeholder="Find A Friend...">
+                        <button class="search-btn btn-primary">Search</button>
+                    </div>
+                    <div class="people-selection">
+                        <div class="friends-p active">MyFriends</div>
+                        <div class="online-p"><span class="green-ball"></span> Online(<span class="online-count">0</span>)</div>
+                    </div>
+                    <div class="contacts"></div>
+                </div>
+                <div class="chat d-flex flex-column">
+                    <div class="current-contact hidden">
+                        <div class="avatar"></div>
+                        <div class="contact-name"></div>
+                        <div class="block-btn">Block</div>
+                    </div>
+                    <div class="arrow hidden">&gt;</div>
+                    <div class="blanck-screen">&lt;&lt; Select A Contact To Chat With</div>
+                    <div class="chat-screen hidden">
+                    </div>
+                    <div class="chat-bar hidden">
+                        <input type="text" name="message" placeholder="Your Message...">
+                        <button type="submit" class="messageBtn"> &gt; </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
+</body>
+<script src="./js/master.js"></script>
+
+</html>
