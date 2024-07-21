@@ -14,8 +14,8 @@ let BlockedPeopleByMe = new Set();
 let BlockedByPeople = new Set();
 
 // my API URL
-// const MY_URL = 'https://chatme-production-41f5.up.railway.app/';
-const MY_URL = 'http://localhost:8080/';
+const MY_URL = 'https://chatme-production-41f5.up.railway.app/';
+// const MY_URL = 'http://localhost:8080/';
 
 // for better UI
 const avatarColors = ['#726eff','#08c6ab','#607d8b','#ff0f0f','#c608a2','#9c27b0','#973e1b','#5f5d97','#ca1515','#f44336','#e91e63','#ff5722','#673ab7','#00cf09'];
