@@ -104,7 +104,7 @@ function createSocket() {
 // fetch all my Friends to append it to contacts
 async function fetchMyFriends() {
     try {
-        let {contacts} = await (await fetch(MY_URL+'userOp/friends',{credentials:'include',headers:{'Set-Cookie':document.cookie}})).json();
+        let {contacts} = await (await fetch(MY_URL+'userOp/friends',{credentials:'include'})).json();
         for (let idx = 0; idx < contacts.length; idx++) {
             FriendsWithChats.set(contacts[idx].userId.toString() ,{userName:contacts[idx].userName,messages:[],fetched:false});
         }
