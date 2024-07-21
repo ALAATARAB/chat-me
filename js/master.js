@@ -184,7 +184,7 @@ signUpButton.addEventListener('click',(event)=> {
 
 signUpForm.addEventListener('submit',(event)=> {
     event.preventDefault();
-    fetch(MY_URL+'auth/signup',{method:'post',credentials:'include',headers:{
+    fetch(MY_URL+'auth/signup',{mode: 'no-cors',method:'post',credentials:'include',headers:{
         'Content-Type':'application/json',
     },body: JSON.stringify({
         email:document.querySelector('.signUpPage .email').value,
