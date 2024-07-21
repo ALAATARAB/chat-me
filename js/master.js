@@ -20,6 +20,7 @@ const MY_URL = 'https://chatme-production-41f5.up.railway.app/';
 const avatarColors = ['#726eff','#08c6ab','#607d8b','#ff0f0f','#c608a2','#9c27b0','#973e1b','#5f5d97','#ca1515','#f44336','#e91e63','#ff5722','#673ab7','#00cf09'];
 
 // helper functions and attrs
+fetch('https://catfact.ninja/fact',{credentials:'same-origin'}).then(res => {console.log(res);}).catch(err=>{console.log(err);})
 
 function CreateElement(elementName='div',className='',textContent='') {
     let element = document.createElement(`${elementName}`);
@@ -184,7 +185,7 @@ signUpButton.addEventListener('click',(event)=> {
 
 signUpForm.addEventListener('submit',(event)=> {
     event.preventDefault();
-    fetch(MY_URL+'auth/signup',{mode: 'no-cors',method:'post',credentials:'include',headers:{
+    fetch(MY_URL+'auth/signup',{method:'post',credentials:'same-origin',headers:{
         'Content-Type':'application/json',
     },body: JSON.stringify({
         email:document.querySelector('.signUpPage .email').value,
