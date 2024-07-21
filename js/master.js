@@ -14,7 +14,8 @@ let BlockedPeopleByMe = new Set();
 let BlockedByPeople = new Set();
 
 // my API URL
-const MY_URL = 'https://chatme-production-41f5.up.railway.app/';
+// const MY_URL = 'https://chatme-production-41f5.up.railway.app/';
+const MY_URL = 'http://localhost:8080/';
 
 // for better UI
 const avatarColors = ['#726eff','#08c6ab','#607d8b','#ff0f0f','#c608a2','#9c27b0','#973e1b','#5f5d97','#ca1515','#f44336','#e91e63','#ff5722','#673ab7','#00cf09'];
@@ -103,7 +104,7 @@ function createSocket() {
 // fetch all my Friends to append it to contacts
 async function fetchMyFriends() {
     try {
-        let {contacts} = await (await fetch(MY_URL+'userOp/friends',{credentials:'same-origin'})).json();
+        let {contacts} = await (await fetch(MY_URL+'userOp/friends',{credentials:'include',headers:{'Set-Cookie':document.cookie}})).json();
         for (let idx = 0; idx < contacts.length; idx++) {
             FriendsWithChats.set(contacts[idx].userId.toString() ,{userName:contacts[idx].userName,messages:[],fetched:false});
         }
@@ -120,7 +121,7 @@ function getUserName() {
 }
 
 async function fetchMyBlockedAndBlockedBy() {
-    let res = await fetch(MY_URL+'userOp/blockedAndBlockedBy',{credentials:'same-origin'});
+    let res = await fetch(MY_URL+'userOp/blockedAndBlockedBy',{credentials:'include'});
     if (res.status >= 400) {
         throw 'There is with getting blocked people and blocked by people refresh the page!';
     }
@@ -184,7 +185,7 @@ signUpButton.addEventListener('click',(event)=> {
 
 signUpForm.addEventListener('submit',(event)=> {
     event.preventDefault();
-    fetch(MY_URL+'auth/signup',{method:'post',credentials:'same-origin',headers:{
+    fetch(MY_URL+'auth/signup',{method:'post',credentials:'include',headers:{
         'Content-Type':'application/json',
     },body: JSON.stringify({
         email:document.querySelector('.signUpPage .email').value,
@@ -195,7 +196,7 @@ signUpForm.addEventListener('submit',(event)=> {
 
 logInForm.addEventListener('submit',(event)=> {
     event.preventDefault();
-    fetch(MY_URL+'auth/login',{method:'post',credentials:'same-origin',headers:{
+    fetch(MY_URL+'auth/login',{method:'post',credentials:'include',headers:{
         'Content-Type':'application/json',
     },body: JSON.stringify({
         email:document.querySelector('.logInPage .email').value,
@@ -222,10 +223,11 @@ async function dealWithResultFromSignAndLog(result,signUp)  {
     else {
         if (signUp)
             localStorage.setItem('userName',document.querySelector('.signUpPage .name').value );
-        else 
+        else
             localStorage.setItem('userName',finRes.userName);
         localStorage.setItem('token',finRes.token);
         localStorage.setItem('userId',finRes.userId);
+        
         location.reload();
     }
 }
@@ -357,7 +359,7 @@ onlineButton.addEventListener('click',()=>
 );
 
 async function unBlockPerson(person) {
-    let res = await fetch(MY_URL+'userOp/unBlockPerson',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    let res = await fetch(MY_URL+'userOp/unBlockPerson',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({
         userName:localStorage.getItem('userName'),
         personId:person.id
     })});
@@ -426,7 +428,7 @@ document.querySelector('.block-btn').addEventListener('click',async (event)=> {
     if (!userId)
         throw "There is an issue with getting userId!";
 
-    let res = await fetch(MY_URL+'userOp/blockPerson',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body: JSON.stringify(
+    let res = await fetch(MY_URL+'userOp/blockPerson',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body: JSON.stringify(
     {
         personId:userId
     }
@@ -447,7 +449,7 @@ document.querySelector('.block-btn').addEventListener('click',async (event)=> {
 });
 
 async function fetchMessages(personId) {
-    let res = await fetch(MY_URL+'messages/'+personId,{credentials:'same-origin'});
+    let res = await fetch(MY_URL+'messages/'+personId,{credentials:'include'});
     if (res.status >= 400) {
         throw "There is an error in fetch messages";
     }
@@ -504,7 +506,7 @@ function addClickEventForGetMessages(node) {
 
 // this event for the Add button in either searched person or Online people
 async function addToMyFriendEvent(friendId,friendName) {
-    let res = await fetch(MY_URL+'userOp/addFriend',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    let res = await fetch(MY_URL+'userOp/addFriend',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({
         friendId:friendId,userName:localStorage.getItem('userName')})});
     if (res.status >= 400) {
         contacts.innerHTML = '';
@@ -522,7 +524,7 @@ async function addToMyFriendEvent(friendId,friendName) {
 searchButton.addEventListener('click',async (event)=> {
     if (String(searchInput.value).trim() && String(searchInput.value).trim() != localStorage.getItem('userName')) {
         loading(contacts);
-        let result = await fetch(MY_URL+'userOp/friend/'+searchInput.value,{credentials:'same-origin'});
+        let result = await fetch(MY_URL+'userOp/friend/'+searchInput.value,{credentials:'include'});
         deleteClass(myFriendsButton,'active');
         deleteClass(onlineButton,'active');
         searchInput.value = '';
